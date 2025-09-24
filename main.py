@@ -3,7 +3,9 @@ import sys
 import logging
 from typing import List, Dict
 import argparse
-  
+import tempfile
+from nltk_setup import download_nltk_resources
+download_nltk_resources()
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -13,6 +15,7 @@ from config.settings import Settings
 from data.extractor import DocumentExtractor, CVInfoExtractor
 from data.preprocessor import DataPipeline
 from models.classifier import CVClassifier, JobMatcher
+from config.responses import CVResponseGenerator
 
 class CVClassifierApp:
     
@@ -24,7 +27,7 @@ class CVClassifierApp:
         self.job_matcher = None
         
     def process_single_cv(self, file_path: str, job_requirements: Dict = None) -> Dict:
-        """Procesa un CV individual y devuelve análisis completo"""
+        """Procesa un CV individual y devuelve análisis completo MEJORADO"""
         try:
             logger.info(f"Procesando CV: {file_path}")
             
@@ -33,7 +36,7 @@ class CVClassifierApp:
             if not text:
                 return {"error": "No se pudo extraer texto del archivo"}
             
-            # **NUEVA VALIDACIÓN PREVIA** - Filtrar CVs no técnicos
+            # **VALIDACIÓN PREVIA** - Filtrar CVs no técnicos
             logger.info("Realizando validación previa...")
             initial_validation = Settings.validate_profile(text)
             
@@ -43,16 +46,26 @@ class CVClassifierApp:
                 # Obtener análisis detallado para debugging
                 debug_analysis = Settings.debug_profile_analysis(text)
                 
-                return {
+                # Crear resultado básico para respuesta generada
+                basic_result = {
                     'predicted_class': 'No apto',
-                    'confidence': 0.95,  # Alta confianza en el rechazo
+                    'confidence': 0.95,
                     'cv_score': 0.0,
+                    'tech_score': Settings.calculate_tech_score(text),
+                    'cv_info': {'skills': [], 'experience_years': 0},
                     'rejection_reason': 'Perfil no técnico detectado en validación previa',
                     'debug_info': debug_analysis,
                     'text_preview': text[:200] + "..." if len(text) > 200 else text,
                     'file_path': file_path,
                     'validation_stage': 'pre_validation'
                 }
+                
+                # Generar respuesta detallada
+                detailed_response = CVResponseGenerator.generate_detailed_response(basic_result)
+                basic_result['detailed_analysis'] = detailed_response
+                basic_result['analysis'] = detailed_response
+                
+                return basic_result
             
             logger.info(f"CV pasó validación previa: {initial_validation}")
             
@@ -66,16 +79,25 @@ class CVClassifierApp:
             # Si el score técnico es muy bajo, rechazar
             if tech_score < 0.3:
                 logger.info("CV rechazado por score técnico insuficiente")
-                return {
+                
+                basic_result = {
                     'predicted_class': 'No apto',
                     'confidence': 0.85,
                     'cv_score': tech_score * 100,
+                    'tech_score': tech_score,
                     'rejection_reason': f'Score técnico insuficiente: {tech_score:.2f}',
                     'cv_info': cv_info,
                     'text_preview': text[:200] + "..." if len(text) > 200 else text,
                     'file_path': file_path,
                     'validation_stage': 'tech_score_validation'
                 }
+                
+                # Generar respuesta detallada
+                detailed_response = CVResponseGenerator.generate_detailed_response(basic_result)
+                basic_result['detailed_analysis'] = detailed_response
+                basic_result['analysis'] = detailed_response
+                
+                return basic_result
             
             # Procesar para el modelo
             processed_text = self.data_pipeline.text_processor.preprocess_text(text)
@@ -89,63 +111,53 @@ class CVClassifierApp:
             features = list(features_dict.values())
             
             # Verificar si hay modelo entrenado
-            model_path = os.path.join(Settings.MODEL_DIR, 'cv_classifier_model')
-            if os.path.exists(model_path):
-                self.classifier.load_model(model_path)
+            model_path = os.path.join(Settings.MODEL_DIR, 'cv_classifier_model.keras')
+            model_exists = os.path.exists(model_path) or os.path.exists(model_path.replace('.keras', '.h5'))
+            
+            if model_exists:
+                # Intentar cargar el modelo
+                if not self.classifier.model:
+                    success = self.classifier.load_model(model_path)
+                    if not success:
+                        logger.warning("No se pudo cargar el modelo existente")
                 
-                # Realizar predicción
-                import numpy as np
-                result = self.classifier.predict_single(
-                    np.array(text_sequence), 
-                    np.array(features)
-                )
+                if self.classifier.model:
+                    # Realizar predicción con el modelo
+                    import numpy as np
+                    result = self.classifier.predict_single(
+                        np.array(text_sequence), 
+                        np.array(features)
+                    )
+                    
+                    score = self.classifier.calculate_cv_score(
+                        np.array(text_sequence), 
+                        np.array(features)
+                    )
+                    
+                    # **AJUSTE FINAL DEL SCORE** basado en validación técnica
+                    if score < 50 and tech_score > 0.6:
+                        adjusted_score = max(score, tech_score * 100)
+                        logger.info(f"Score ajustado de {score} a {adjusted_score} por tech_score alto")
+                        score = adjusted_score
+                    
+                    # Si hay requisitos de trabajo, hacer matching específico
+                    if job_requirements and self.job_matcher:
+                        job_match = self.job_matcher.match_cv_to_job(text, cv_info, job_requirements)
+                        result.update(job_match)
+                    else:
+                        result['cv_score'] = score
+                    
+                    # **VALIDACIÓN FINAL** - Si el modelo dice "Apto" pero score muy bajo, degradar
+                    if result.get('predicted_class') == 'Apto' and score < Settings.APTO_THRESHOLD * 100:
+                        result['predicted_class'] = 'Revisar'
+                        result['adjustment_reason'] = f'Degradado de Apto a Revisar por score bajo: {score:.1f}'
                 
-                score = self.classifier.calculate_cv_score(
-                    np.array(text_sequence), 
-                    np.array(features)
-                )
-                
-                # **AJUSTE FINAL DEL SCORE** basado en validación técnica
-                # Si pasó todas las validaciones pero el modelo da score bajo, 
-                # ajustar con el tech_score
-                if score < 50 and tech_score > 0.6:
-                    adjusted_score = max(score, tech_score * 100)
-                    logger.info(f"Score ajustado de {score} a {adjusted_score} por tech_score alto")
-                    score = adjusted_score
-                
-                # Si hay requisitos de trabajo, hacer matching específico
-                if job_requirements and self.job_matcher:
-                    job_match = self.job_matcher.match_cv_to_job(text, cv_info, job_requirements)
-                    result.update(job_match)
                 else:
-                    result['cv_score'] = score
-                
-                # **VALIDACIÓN FINAL** - Si el modelo dice "Apto" pero score muy bajo, degradar
-                if result.get('predicted_class') == 'Apto' and score < Settings.APTO_THRESHOLD * 100:
-                    result['predicted_class'] = 'Revisar'
-                    result['adjustment_reason'] = f'Degradado de Apto a Revisar por score bajo: {score:.1f}'
-                
+                    # Fallback a análisis basado en reglas si el modelo no se carga
+                    result = self._fallback_analysis(tech_score, cv_info)
             else:
                 logger.warning("No hay modelo entrenado. Usando análisis basado en reglas.")
-                
-                # **ANÁLISIS BASADO EN REGLAS** cuando no hay modelo
-                if tech_score >= 0.7:
-                    predicted_class = 'Apto'
-                    confidence = 0.8
-                elif tech_score >= 0.4:
-                    predicted_class = 'Revisar' 
-                    confidence = 0.6
-                else:
-                    predicted_class = 'No apto'
-                    confidence = 0.7
-                
-                result = {
-                    'predicted_class': predicted_class,
-                    'confidence': confidence,
-                    'cv_score': tech_score * 100,
-                    'note': 'Modelo no entrenado - Análisis basado en reglas técnicas',
-                    'tech_score': tech_score
-                }
+                result = self._fallback_analysis(tech_score, cv_info)
             
             # Añadir información extraída y de validación
             result.update({
@@ -154,8 +166,14 @@ class CVClassifierApp:
                 'file_path': file_path,
                 'validation_stage': 'full_processing',
                 'initial_validation': initial_validation,
-                'tech_score': tech_score
+                'tech_score': tech_score,
+                'cv_score': result.get('cv_score', tech_score * 100)
             })
+            
+            # **GENERAR RESPUESTA DETALLADA MEJORADA**
+            detailed_response = CVResponseGenerator.generate_detailed_response(result)
+            result['detailed_analysis'] = detailed_response
+            result['analysis'] = detailed_response  # Para compatibilidad
             
             logger.info(f"CV procesado: {result['predicted_class']} (Score: {result.get('cv_score', 0):.1f})")
             return result
@@ -163,6 +181,26 @@ class CVClassifierApp:
         except Exception as e:
             logger.error(f"Error procesando CV {file_path}: {e}")
             return {"error": str(e)}
+    
+    def _fallback_analysis(self, tech_score: float, cv_info: Dict) -> Dict:
+        """Análisis basado en reglas cuando no hay modelo disponible"""
+        if tech_score >= 0.7:
+            predicted_class = 'Apto'
+            confidence = 0.8
+        elif tech_score >= 0.4:
+            predicted_class = 'Revisar' 
+            confidence = 0.6
+        else:
+            predicted_class = 'No apto'
+            confidence = 0.7
+        
+        return {
+            'predicted_class': predicted_class,
+            'confidence': confidence,
+            'cv_score': tech_score * 100,
+            'note': 'Modelo no entrenado - Análisis basado en reglas técnicas',
+            'tech_score': tech_score
+        }
     
     def batch_process_cvs(self, cv_folder: str, output_file: str = None) -> List[Dict]:
         """Procesa múltiples CVs en una carpeta"""
@@ -242,16 +280,28 @@ class CVClassifierApp:
         return results
     
     def validate_cv_quick(self, text: str) -> Dict:
-        """Validación rápida de un CV (solo pre-validación)"""
+        """Validación rápida de un CV MEJORADA"""
         validation_result = Settings.validate_profile(text)
         debug_analysis = Settings.debug_profile_analysis(text)
         tech_score = Settings.calculate_tech_score(text)
+        
+        # Crear resultado básico para la respuesta generada
+        basic_result = {
+            'predicted_class': validation_result,
+            'confidence': 0.8 if validation_result == "Apto" else 0.6,
+            'tech_score': tech_score,
+            'cv_info': {'skills': [], 'experience_years': 0}
+        }
+        
+        detailed_response = CVResponseGenerator.generate_detailed_response(basic_result)
         
         return {
             'validation_result': validation_result,
             'tech_score': tech_score,
             'debug_analysis': debug_analysis,
-            'recommendation': self._get_recommendation(validation_result, tech_score)
+            'recommendation': self._get_recommendation(validation_result, tech_score),
+            'detailed_assessment': detailed_response,
+            'quick_analysis': detailed_response  # Para compatibilidad
         }
     
     def _get_recommendation(self, validation: str, tech_score: float) -> str:
@@ -366,6 +416,7 @@ def main():
             print(f"   Resultado: {result['validation_result']}")
             print(f"   Score técnico: {result['tech_score']:.2f}")
             print(f"   Recomendación: {result['recommendation']}")
+            print(f"   Análisis Detallado: {result.get('detailed_assessment', {}).get('executive_summary', '')}")
         elif args.input:
             with open(args.input, 'r', encoding='utf-8') as f:
                 text = f.read()
@@ -394,6 +445,12 @@ def main():
             print(f"   📊 Score: {result.get('cv_score', 0):.1f}/100")
             print(f"   🔧 Score técnico: {result.get('tech_score', 0):.2f}")
             print(f"   ⚡ Etapa: {result.get('validation_stage', 'unknown')}")
+            
+            # Mostrar resumen del análisis detallado
+            if 'detailed_analysis' in result:
+                analysis = result['detailed_analysis']
+                print(f"   📋 Resumen: {analysis.get('executive_summary', '')}")
+                print(f"   💪 Fortalezas: {len(analysis.get('strengths_analysis', {}).get('technical_skills', {}).get('top_skills', []))} habilidades técnicas")
             
             if result.get('rejection_reason'):
                 print(f"   ❌ Razón rechazo: {result['rejection_reason']}")
@@ -425,4 +482,5 @@ def main():
         start_server(app)
 
 if __name__ == "__main__":
+
     main()

@@ -583,7 +583,7 @@ def start_server(classifier_app, host: str = "0.0.0.0", port: int = 8000):
         log_level="info",
         access_log=True,
         reload=False,  # Cambiar a True solo en desarrollo
-        workers=1  # Para evitar problemas con el modelo compartido
+        workers=1  
     )
     
     server = uvicorn.Server(config)

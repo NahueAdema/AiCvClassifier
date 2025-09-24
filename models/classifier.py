@@ -20,11 +20,10 @@ class CVClassifier:
         # Input para secuencias de texto
         text_input = layers.Input(shape=(max_length,), name='text_input')
         
-        # Embedding layer
+        # Embedding layer 
         embedding = layers.Embedding(
             input_dim=self.vocab_size,
             output_dim=settings.EMBEDDING_DIM,
-            input_length=max_length,
             mask_zero=True
         )(text_input)
         
@@ -33,7 +32,7 @@ class CVClassifier:
             layers.LSTM(64, return_sequences=True, dropout=0.3, recurrent_dropout=0.3)
         )(embedding)
         
-        # Attention mechanism simplificado
+        # Attention mechanism 
         attention = layers.GlobalAveragePooling1D()(lstm_out)
         
         # Input para características numéricas
@@ -151,9 +150,11 @@ class CVClassifier:
     def save_model(self, model_path: str = None) -> str:
         """Guarda el modelo entrenado"""
         if model_path is None:
-            model_path = os.path.join(settings.MODEL_DIR, 'cv_classifier_model')
+            model_path = os.path.join(settings.MODEL_DIR, 'cv_classifier_model.keras')  # CORREGIDO: añadida extensión
         
         os.makedirs(os.path.dirname(model_path), exist_ok=True)
+        
+        
         self.model.save(model_path)
         
         metadata = {
@@ -163,7 +164,9 @@ class CVClassifier:
             'num_classes': settings.NUM_CLASSES
         }
         
-        with open(f"{model_path}_metadata.json", 'w') as f:
+        
+        metadata_path = model_path.replace('.keras', '_metadata.json')
+        with open(metadata_path, 'w') as f:
             json.dump(metadata, f)
         
         return model_path
@@ -171,23 +174,55 @@ class CVClassifier:
     def load_model(self, model_path: str) -> bool:
         """Carga un modelo previamente entrenado"""
         try:
+            
+            if not model_path.endswith(('.keras', '.h5')):
+                
+                possible_paths = [
+                    model_path + '.keras',
+                    model_path + '.h5',
+                    model_path.replace('.keras', '') + '.keras',
+                    model_path.replace('.h5', '') + '.h5'
+                ]
+                
+                for path in possible_paths:
+                    if os.path.exists(path):
+                        model_path = path
+                        break
+                else:
+                    
+                    model_path = model_path + '.keras'
+            
             self.model = tf.keras.models.load_model(model_path)
             
-            metadata_path = f"{model_path}_metadata.json"
+            # CORREGIDO: Buscar metadata con el patrón correcto
+            metadata_path = model_path.replace('.keras', '_metadata.json').replace('.h5', '_metadata.json')
             if os.path.exists(metadata_path):
                 with open(metadata_path, 'r') as f:
                     metadata = json.load(f)
                     self.vocab_size = metadata.get('vocab_size', self.vocab_size)
             
+            print(f"✓ Modelo cargado correctamente desde: {model_path}")
             return True
         except Exception as e:
-            print(f"Error cargando modelo: {e}")
-            return False
+            print(f"❌ Error cargando modelo desde {model_path}: {e}")
+            
+            
+            try:
+                self.model = tf.keras.models.load_model(model_path)
+                print("✓ Modelo cargado sin metadata")
+                return True
+            except Exception as e2:
+                print(f"❌ Error crítico cargando modelo: {e2}")
+                return False
     
     def get_model_summary(self) -> str:
         if self.model is None:
             return "Modelo no construido"
-        return self.model.summary()
+        
+        
+        string_list = []
+        self.model.summary(print_fn=lambda x: string_list.append(x))
+        return "\n".join(string_list)
 
 class JobMatcher:
     """Clase para comparar CVs con descripciones de trabajo específicas"""
@@ -232,7 +267,7 @@ class JobMatcher:
             'job_compatibility_score': job_score * 100,
             'final_score': round(final_score, 2),
             'recommendation': self._get_recommendation(final_score),
-            'missing_skills': self._find_missing_skills(cv_info['skills'], job_profile['required_skills'])
+            'missing_skills': self._find_missing_skills(cv_info.get('skills', []), job_profile['required_skills'])
         }
     
     def _calculate_job_compatibility(self, cv_info: Dict, job_profile: Dict) -> float:
