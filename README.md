@@ -1,4 +1,4 @@
-Acá te armé un **README.md** completo y bien explicado para tu proyecto de IA con TensorFlow que evalúa CVs técnicos de developers:
+
 
 ````markdown
 # 📄 IA para Evaluación de CVs Técnicos de Developers
