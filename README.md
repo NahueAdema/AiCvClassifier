@@ -1,28 +1,95 @@
-**Entrenar modelo**
-python main.py --mode train
+Acá te armé un **README.md** completo y bien explicado para tu proyecto de IA con TensorFlow que evalúa CVs técnicos de developers:
 
-**Procesar un CV**
-python main.py --mode process --input **"cv_ejemplo.pdf"**
+````markdown
+# 📄 IA para Evaluación de CVs Técnicos de Developers
 
-cv_supermercado
+Este proyecto utiliza **TensorFlow** y **FastAPI** para analizar y evaluar CVs técnicos de desarrolladores, generando insights útiles para procesos de selección.  
 
-**Iniciar API**
+El servicio expone una API REST accesible en `http://127.0.0.1:8000`, con documentación interactiva en **Swagger UI** (`/docs`).  
+
+---
+
+## 🚀 Instalación
+
+### 1. Clonar el repositorio
+```bash
+git clone https://github.com/NahueAdema/AiCvClassifier
+cd AiCvClassifier
+````
+
+### 2. Crear y activar entorno virtual
+
+En **Linux/Mac**:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+En **Windows (PowerShell)**:
+
+```bash
+python -m venv venv
+.\venv\Scripts\activate
+```
+
+### 3. Instalar dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## ▶️ Ejecución del servidor
+
+Para iniciar la API en modo servidor:
+
+```bash
 python main.py --mode server
+```
 
-pip **install** -r requirements.txt
+Por defecto, el servidor quedará levantado en:
 
-# Validación rápida de texto
+```
+http://127.0.0.1:8000
+```
 
-python main.py --mode validate --text "Soy cajero de supermercado con 3 años de experiencia"
+---
 
-# Validación de archivo
+## 📚 Endpoints principales
 
-python main.py --mode validate --input cv_sospechoso.txt
+* **Health Check**:
+  `GET /health` → Verifica que el servicio está corriendo.
 
-# Procesamiento normal (mejorado)
+* **Subir CV para análisis**:
+  `POST /analyze-cv` → Permite enviar un archivo `.pdf` o `.docx` para evaluación.
 
-python main.py --mode process --input cv.pdf
+* **Swagger UI** (documentación interactiva):
+  [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
-# Batch con estadísticas detalladas
+---
 
-python main.py --mode batch --input carpeta_cvs/ --output resultados.json
+## 🛠 Tecnologías utilizadas
+
+* [TensorFlow](https://www.tensorflow.org/) → Modelado y predicción.
+* [FastAPI](https://fastapi.tiangolo.com/) → API REST.
+* [Uvicorn](https://www.uvicorn.org/) → Servidor ASGI rápido para correr la API.
+* [Python 3.9+](https://www.python.org/)
+
+---
+
+## 🤝 Contribución
+
+1. Haz un fork del proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`)
+3. Haz commit de tus cambios (`git commit -m 'Agregada nueva funcionalidad'`)
+4. Haz push a tu rama (`git push origin feature/nueva-funcionalidad`)
+5. Abre un Pull Request 🚀
+
+---
+
+## 📄 Licencia
+
+Este proyecto se distribuye bajo la licencia MIT.
+
