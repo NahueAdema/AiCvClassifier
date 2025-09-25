@@ -1,13 +1,9 @@
-
-
-````markdown
 # 📄 IA para Evaluación de CVs Técnicos de Developers
 
 Este proyecto utiliza **TensorFlow** y **FastAPI** para analizar y evaluar CVs técnicos de desarrolladores, generando insights útiles para procesos de selección.  
 
 El servicio expone una API REST accesible en `http://127.0.0.1:8000`, con documentación interactiva en **Swagger UI** (`/docs`).  
 
----
 
 ## 🚀 Instalación
 
