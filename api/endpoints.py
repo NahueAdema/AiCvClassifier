@@ -414,13 +414,18 @@ def create_api_app(classifier_app) -> FastAPI:
             raise HTTPException(status_code=500, detail=str(e))
     
     @app.post("/train-model")
-    async def train_model(background_tasks: BackgroundTasks):
-        """Entrena el modelo con datos de ejemplo (desarrollo/testing)"""
+    async def train_model(background_tasks: BackgroundTasks, dataset_path: Optional[str] = None):
+        """Entrena el modelo con un dataset real desde archivo JSON"""
         try:
+            # Usar ruta por defecto si no se especifica
+            if dataset_path is None:
+                from config.settings import Settings
+                dataset_path = os.path.join(Settings.DATA_DIR, 'cv_dataset.json')
+            
             # Ejecutar entrenamiento en background
             def train_background():
-                logger.info("Iniciando entrenamiento en background...")
-                success = cv_app.train_model_with_sample_data()
+                logger.info(f"Iniciando entrenamiento en background con dataset: {dataset_path}")
+                success = cv_app.train_model(dataset_path)
                 status = "exitoso" if success else "fallido"
                 logger.info(f"Entrenamiento completado: {status}")
                 return success
@@ -430,8 +435,9 @@ def create_api_app(classifier_app) -> FastAPI:
             return {
                 "message": "Entrenamiento iniciado en segundo plano",
                 "status": "training_started",
+                "dataset_path": dataset_path,
                 "started_at": datetime.now().isoformat(),
-                "note": "El modelo se entrenará con datos de ejemplo. Verificar /model-status para el progreso."
+                "note": "Verificar /model-status para confirmar cuando el modelo esté listo."
             }
             
         except Exception as e:

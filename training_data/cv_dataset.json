@@ -1,0 +1,1404 @@
+[
+  {
+    "id": 1,
+    "nombre": "Juan García",
+    "titulo": "Senior Full Stack Developer",
+    "experiencia_años": 8,
+    "resumen": "Ingeniero de software con 8 años de experiencia en desarrollo web y móvil. Especializado en arquitectura de aplicaciones escalables.",
+    "habilidades": [
+      "JavaScript",
+      "React",
+      "Node.js",
+      "Python",
+      "PostgreSQL",
+      "AWS",
+      "Docker",
+      "Kubernetes"
+    ],
+    "lenguajes_programacion": ["JavaScript", "Python", "Java", "TypeScript"],
+    "experiencia_laboral": [
+      {
+        "empresa": "TechCorp",
+        "cargo": "Senior Developer",
+        "años": 3,
+        "descripcion": "Lideré equipo de 5 desarrolladores en migración a microservicios"
+      },
+      {
+        "empresa": "WebSolutions",
+        "cargo": "Full Stack Developer",
+        "años": 2,
+        "descripcion": "Desarrollé aplicaciones web con React y Node.js"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Ingeniería en Sistemas",
+        "institucion": "Universidad Tecnológica",
+        "año": 2016
+      }
+    ],
+    "certificaciones": ["AWS Solutions Architect", "Kubernetes CKA"],
+    "nivel": "senior",
+    "disponibilidad": "inmediata",
+    "pretension_salarial": 80000
+  },
+  {
+    "id": 2,
+    "nombre": "María López",
+    "titulo": "Frontend Developer",
+    "experiencia_años": 4,
+    "resumen": "Desarrolladora frontend con pasión por crear interfaces intuitivas y responsivas. Especializada en React y Vue.js.",
+    "habilidades": [
+      "React",
+      "Vue.js",
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Sass",
+      "Figma",
+      "Responsive Design"
+    ],
+    "lenguajes_programacion": ["JavaScript", "TypeScript", "HTML", "CSS"],
+    "experiencia_laboral": [
+      {
+        "empresa": "DesignStudio",
+        "cargo": "Frontend Developer",
+        "años": 4,
+        "descripcion": "Implementé componentes reutilizables y mejoré performance en 40%"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Bootcamp de Programación",
+        "institucion": "CodeAcademy",
+        "año": 2020
+      }
+    ],
+    "certificaciones": ["React Certified Developer"],
+    "nivel": "mid",
+    "disponibilidad": "2 semanas",
+    "pretension_salarial": 45000
+  },
+  {
+    "id": 3,
+    "nombre": "Carlos Rodríguez",
+    "titulo": "Backend Engineer",
+    "experiencia_años": 6,
+    "resumen": "Ingeniero backend especializado en sistemas distribuidos y APIs REST. Experto en optimización de bases de datos.",
+    "habilidades": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "MongoDB",
+      "Redis",
+      "RabbitMQ",
+      "Microservicios",
+      "API REST"
+    ],
+    "lenguajes_programacion": ["Java", "Python", "SQL", "Kotlin"],
+    "experiencia_laboral": [
+      {
+        "empresa": "FinTech Solutions",
+        "cargo": "Backend Engineer",
+        "años": 3,
+        "descripcion": "Diseñé arquitectura de pagos con 99.99% uptime"
+      },
+      {
+        "empresa": "StartupXYZ",
+        "cargo": "Junior Developer",
+        "años": 2,
+        "descripcion": "Desarrollé APIs con Spring Boot"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Licenciatura en Informática",
+        "institucion": "Universidad Nacional",
+        "año": 2018
+      }
+    ],
+    "certificaciones": ["Spring Certified Associate", "AWS Developer"],
+    "nivel": "mid",
+    "disponibilidad": "3 semanas",
+    "pretension_salarial": 55000
+  },
+  {
+    "id": 4,
+    "nombre": "Sofia Chen",
+    "titulo": "DevOps Engineer",
+    "experiencia_años": 5,
+    "resumen": "Especialista en infraestructura cloud y CI/CD. Experta en automatización y monitoreo de sistemas.",
+    "habilidades": [
+      "Docker",
+      "Kubernetes",
+      "Terraform",
+      "Jenkins",
+      "AWS",
+      "Azure",
+      "Monitoring",
+      "Linux"
+    ],
+    "lenguajes_programacion": ["Python", "Bash", "Go", "YAML"],
+    "experiencia_laboral": [
+      {
+        "empresa": "CloudMasters",
+        "cargo": "DevOps Engineer",
+        "años": 5,
+        "descripcion": "Implementé infraestructura como código para 50+ microservicios"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Ingeniería de Telecomunicaciones",
+        "institucion": "Instituto Politécnico",
+        "año": 2019
+      }
+    ],
+    "certificaciones": [
+      "Kubernetes CKA",
+      "AWS Solutions Architect",
+      "Terraform Associate"
+    ],
+    "nivel": "mid",
+    "disponibilidad": "1 mes",
+    "pretension_salarial": 60000
+  },
+  {
+    "id": 5,
+    "nombre": "Pedro Martínez",
+    "titulo": "Junior Programmer",
+    "experiencia_años": 1,
+    "resumen": "Programador junior recién egresado. Entusiasta por aprender nuevas tecnologías. Experiencia en proyectos académicos.",
+    "habilidades": [
+      "Python",
+      "JavaScript",
+      "Git",
+      "HTML",
+      "CSS",
+      "MySQL",
+      "OOP"
+    ],
+    "lenguajes_programacion": ["Python", "JavaScript", "Java"],
+    "experiencia_laboral": [
+      {
+        "empresa": "Tech Startup",
+        "cargo": "Junior Developer",
+        "años": 1,
+        "descripcion": "Mantenimiento de aplicaciones web y corrección de bugs"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Licenciatura en Ciencias de la Computación",
+        "institucion": "Universidad Pública",
+        "año": 2023
+      }
+    ],
+    "certificaciones": [],
+    "nivel": "junior",
+    "disponibilidad": "inmediata",
+    "pretension_salarial": 25000
+  },
+  {
+    "id": 6,
+    "nombre": "Laura Fernández",
+    "titulo": "Full Stack Developer",
+    "experiencia_años": 7,
+    "resumen": "Desarrolladora full stack con experiencia en startups y empresas grandes. Especializada en arquitectura escalable.",
+    "habilidades": [
+      "React",
+      "Node.js",
+      "PostgreSQL",
+      "MongoDB",
+      "GraphQL",
+      "TypeScript",
+      "AWS",
+      "Firebase"
+    ],
+    "lenguajes_programacion": ["JavaScript", "TypeScript", "Python", "SQL"],
+    "experiencia_laboral": [
+      {
+        "empresa": "E-Commerce Giant",
+        "cargo": "Senior Full Stack Developer",
+        "años": 4,
+        "descripcion": "Desarrollé plataforma de marketplace con 1M+ usuarios"
+      },
+      {
+        "empresa": "AgileStartup",
+        "cargo": "Full Stack Developer",
+        "años": 3,
+        "descripcion": "Desarrollo de producto desde cero con metodología ágil"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Ingeniería en Software",
+        "institucion": "Universidad Tecnológica",
+        "año": 2017
+      }
+    ],
+    "certificaciones": ["AWS Certified Developer", "GraphQL Fundamentals"],
+    "nivel": "senior",
+    "disponibilidad": "2 meses",
+    "pretension_salarial": 75000
+  },
+  {
+    "id": 7,
+    "nombre": "Andrés Sánchez",
+    "titulo": "Data Engineer",
+    "experiencia_años": 4,
+    "resumen": "Ingeniero de datos con experiencia en big data y machine learning pipelines. Especializado en procesamiento ETL.",
+    "habilidades": [
+      "Python",
+      "Spark",
+      "Hadoop",
+      "PostgreSQL",
+      "AWS Redshift",
+      "Airflow",
+      "SQL",
+      "Pandas"
+    ],
+    "lenguajes_programacion": ["Python", "SQL", "Scala", "Java"],
+    "experiencia_laboral": [
+      {
+        "empresa": "DataCorp",
+        "cargo": "Data Engineer",
+        "años": 4,
+        "descripcion": "Diseñé pipelines de datos procesando 10TB diarios"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Licenciatura en Matemáticas",
+        "institucion": "Universidad de Ciencias",
+        "año": 2020
+      }
+    ],
+    "certificaciones": ["AWS Data Analytics Specialty"],
+    "nivel": "mid",
+    "disponibilidad": "3 semanas",
+    "pretension_salarial": 58000
+  },
+  {
+    "id": 8,
+    "nombre": "Valentina Torres",
+    "titulo": "Mobile Developer",
+    "experiencia_años": 5,
+    "resumen": "Desarrolladora móvil especializada en iOS y desarrollo multiplataforma con React Native.",
+    "habilidades": [
+      "React Native",
+      "Swift",
+      "Objective-C",
+      "JavaScript",
+      "Firebase",
+      "TestFlight",
+      "Xcode"
+    ],
+    "lenguajes_programacion": ["Swift", "JavaScript", "Objective-C", "Python"],
+    "experiencia_laboral": [
+      {
+        "empresa": "Mobile First Co",
+        "cargo": "Senior Mobile Developer",
+        "años": 3,
+        "descripcion": "Lideré desarrollo de app con 2M+ descargas"
+      },
+      {
+        "empresa": "App Studio",
+        "cargo": "Mobile Developer",
+        "años": 2,
+        "descripcion": "Desarrollé múltiples apps para iOS"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Ingeniería en Sistemas",
+        "institucion": "Universidad Privada",
+        "año": 2019
+      }
+    ],
+    "certificaciones": ["Apple Developer Program"],
+    "nivel": "senior",
+    "disponibilidad": "1 mes",
+    "pretension_salarial": 70000
+  },
+  {
+    "id": 9,
+    "nombre": "Marco Rossi",
+    "titulo": "QA Automation Engineer",
+    "experiencia_años": 3,
+    "resumen": "Ingeniero de QA especializado en automatización de pruebas. Experto en testing de aplicaciones web y móviles.",
+    "habilidades": [
+      "Selenium",
+      "Jest",
+      "Cypress",
+      "Python",
+      "Java",
+      "TestNG",
+      "CI/CD",
+      "API Testing"
+    ],
+    "lenguajes_programacion": ["Python", "Java", "JavaScript", "Bash"],
+    "experiencia_laboral": [
+      {
+        "empresa": "SoftwareTesting Inc",
+        "cargo": "QA Automation Engineer",
+        "años": 3,
+        "descripcion": "Automaticé 80% de pruebas aumentando velocidad de release"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Técnico en Programación",
+        "institucion": "Instituto Técnico",
+        "año": 2021
+      }
+    ],
+    "certificaciones": ["ISTQB Certified Tester"],
+    "nivel": "mid",
+    "disponibilidad": "2 semanas",
+    "pretension_salarial": 42000
+  },
+  {
+    "id": 10,
+    "nombre": "Isabella Santos",
+    "titulo": "Technical Lead",
+    "experiencia_años": 10,
+    "resumen": "Líder técnico con 10 años de experiencia. Especializado en arquitectura de software y mentoring de equipos.",
+    "habilidades": [
+      "Java",
+      "Go",
+      "Microservicios",
+      "Arquitectura de Software",
+      "Liderazgo",
+      "Agile",
+      "System Design",
+      "Cloud"
+    ],
+    "lenguajes_programacion": ["Java", "Go", "Python", "TypeScript"],
+    "experiencia_laboral": [
+      {
+        "empresa": "Big Tech Corp",
+        "cargo": "Technical Lead",
+        "años": 4,
+        "descripcion": "Lideré 15 desarrolladores en desarrollo de plataforma cloud"
+      },
+      {
+        "empresa": "Software House",
+        "cargo": "Senior Developer",
+        "años": 3,
+        "descripcion": "Arquitectura y desarrollo de sistemas enterprise"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Maestría en Ingeniería de Software",
+        "institucion": "Universidad de Postgrado",
+        "año": 2018
+      }
+    ],
+    "certificaciones": [
+      "AWS Solutions Architect Professional",
+      "Google Cloud Professional"
+    ],
+    "nivel": "senior",
+    "disponibilidad": "2 meses",
+    "pretension_salarial": 95000
+  },
+  {
+    "id": 11,
+    "nombre": "Diego Hernández",
+    "titulo": "Frontend Engineer",
+    "experiencia_años": 3,
+    "resumen": "Ingeniero frontend con experiencia en React y Next.js. Apasionado por UI/UX y performance.",
+    "habilidades": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Jest",
+      "Webpack",
+      "Performance Optimization"
+    ],
+    "lenguajes_programacion": ["JavaScript", "TypeScript", "CSS", "HTML"],
+    "experiencia_laboral": [
+      {
+        "empresa": "StartUp Digital",
+        "cargo": "Frontend Engineer",
+        "años": 3,
+        "descripcion": "Implementé arquitectura de componentes para plataforma SaaS"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Bootcamp Full Stack",
+        "institucion": "Dev Academy",
+        "año": 2021
+      }
+    ],
+    "certificaciones": ["React Advanced Patterns"],
+    "nivel": "mid",
+    "disponibilidad": "inmediata",
+    "pretension_salarial": 48000
+  },
+  {
+    "id": 12,
+    "nombre": "Camila Vergara",
+    "titulo": "Backend Developer",
+    "experiencia_años": 4,
+    "resumen": "Desarrolladora backend con experiencia en Python y arquitectura de APIs. Especializada en Django.",
+    "habilidades": [
+      "Python",
+      "Django",
+      "Django REST",
+      "PostgreSQL",
+      "Celery",
+      "Redis",
+      "Docker",
+      "Linux"
+    ],
+    "lenguajes_programacion": ["Python", "SQL", "JavaScript", "Bash"],
+    "experiencia_laboral": [
+      {
+        "empresa": "WebApp Solutions",
+        "cargo": "Backend Developer",
+        "años": 4,
+        "descripcion": "Desarrollé APIs REST para plataforma e-commerce con 50k solicitudes/día"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Licenciatura en Computación",
+        "institucion": "Universidad Católica",
+        "año": 2020
+      }
+    ],
+    "certificaciones": ["Python Professional Developer"],
+    "nivel": "mid",
+    "disponibilidad": "1 semana",
+    "pretension_salarial": 52000
+  },
+  {
+    "id": 13,
+    "nombre": "Roberto Jiménez",
+    "titulo": "Senior Backend Engineer",
+    "experiencia_años": 9,
+    "resumen": "Ingeniero backend senior con expertise en sistemas de alta concurrencia. Experto en Go y Java.",
+    "habilidades": [
+      "Go",
+      "Java",
+      "gRPC",
+      "Protocol Buffers",
+      "PostgreSQL",
+      "Cassandra",
+      "Kafka",
+      "AWS"
+    ],
+    "lenguajes_programacion": ["Go", "Java", "Python", "SQL"],
+    "experiencia_laboral": [
+      {
+        "empresa": "HighScale Systems",
+        "cargo": "Senior Backend Engineer",
+        "años": 5,
+        "descripcion": "Diseñé sistema de mensajería distribuida procesando 1B mensajes/día"
+      },
+      {
+        "empresa": "TechFirm",
+        "cargo": "Backend Engineer",
+        "años": 3,
+        "descripcion": "Arquitectura de microservicios con Go"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Ingeniería en Sistemas",
+        "institucion": "Universidad Técnica",
+        "año": 2015
+      }
+    ],
+    "certificaciones": ["AWS Solutions Architect Professional", "Go Advanced"],
+    "nivel": "senior",
+    "disponibilidad": "1 mes",
+    "pretension_salarial": 85000
+  },
+  {
+    "id": 14,
+    "nombre": "Natalia Pereira",
+    "titulo": "Mobile Developer - Android",
+    "experiencia_años": 5,
+    "resumen": "Desarrolladora Android especializada en Kotlin. Experiencia en desarrollo de aplicaciones empresariales.",
+    "habilidades": [
+      "Kotlin",
+      "Android",
+      "Jetpack",
+      "Room",
+      "Firebase",
+      "Retrofit",
+      "MVVM",
+      "Coroutines"
+    ],
+    "lenguajes_programacion": ["Kotlin", "Java", "Python", "SQL"],
+    "experiencia_laboral": [
+      {
+        "empresa": "Mobile Corp",
+        "cargo": "Senior Android Developer",
+        "años": 3,
+        "descripcion": "Lideré desarrollo de app bancaria con 500k+ usuarios"
+      },
+      {
+        "empresa": "App Labs",
+        "cargo": "Android Developer",
+        "años": 2,
+        "descripcion": "Desarrollo de múltiples apps con +4.5 rating"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Ingeniería en Informática",
+        "institucion": "Universidad Estatal",
+        "año": 2018
+      }
+    ],
+    "certificaciones": ["Android Professional Developer"],
+    "nivel": "senior",
+    "disponibilidad": "2 meses",
+    "pretension_salarial": 72000
+  },
+  {
+    "id": 15,
+    "nombre": "Felipe Acosta",
+    "titulo": "Cloud Architect",
+    "experiencia_años": 7,
+    "resumen": "Arquitecto cloud especializado en diseño de infraestructura escalable. Experto en AWS y arquitectura empresarial.",
+    "habilidades": [
+      "AWS",
+      "Architecture Design",
+      "CloudFormation",
+      "Lambda",
+      "RDS",
+      "S3",
+      "VPC",
+      "Security"
+    ],
+    "lenguajes_programacion": ["Python", "YAML", "JSON", "Bash"],
+    "experiencia_laboral": [
+      {
+        "empresa": "CloudFirst Consulting",
+        "cargo": "Cloud Architect",
+        "años": 5,
+        "descripcion": "Diseñé arquitectura multi-región para empresa Fortune 500"
+      },
+      {
+        "empresa": "Tech Services",
+        "cargo": "DevOps Engineer",
+        "años": 2,
+        "descripcion": "Migración a cloud de datacenter on-premises"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Maestría en Cloud Computing",
+        "institucion": "Universidad Virtual",
+        "año": 2018
+      }
+    ],
+    "certificaciones": [
+      "AWS Solutions Architect Professional",
+      "AWS DevOps Professional"
+    ],
+    "nivel": "senior",
+    "disponibilidad": "6 semanas",
+    "pretension_salarial": 90000
+  },
+  {
+    "id": 16,
+    "nombre": "Luciana Silva",
+    "titulo": "Frontend Developer",
+    "experiencia_años": 2,
+    "resumen": "Desarrolladora frontend junior-mid con experiencia en Vue.js y Angular. Apasionada por UX.",
+    "habilidades": [
+      "Vue.js",
+      "Angular",
+      "JavaScript",
+      "TypeScript",
+      "Bootstrap",
+      "Material Design",
+      "Redux"
+    ],
+    "lenguajes_programacion": ["JavaScript", "TypeScript", "HTML", "CSS"],
+    "experiencia_laboral": [
+      {
+        "empresa": "Web Agency",
+        "cargo": "Frontend Developer",
+        "años": 2,
+        "descripcion": "Desarrollo de sitios web responsivos y SPAs"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Técnico en Desarrollo Web",
+        "institucion": "Instituto Tecnológico",
+        "año": 2022
+      }
+    ],
+    "certificaciones": ["Vue.js Essentials"],
+    "nivel": "mid",
+    "disponibilidad": "inmediata",
+    "pretension_salarial": 38000
+  },
+  {
+    "id": 17,
+    "nombre": "Vicente Morales",
+    "titulo": "Database Administrator",
+    "experiencia_años": 6,
+    "resumen": "Administrador de bases de datos con experiencia en optimización y replicación. Especialista en PostgreSQL y Oracle.",
+    "habilidades": [
+      "PostgreSQL",
+      "Oracle",
+      "MySQL",
+      "Performance Tuning",
+      "Backup & Recovery",
+      "Replication",
+      "Sharding"
+    ],
+    "lenguajes_programacion": ["SQL", "PL/SQL", "Python", "Bash"],
+    "experiencia_laboral": [
+      {
+        "empresa": "Enterprise DB",
+        "cargo": "Database Administrator",
+        "años": 4,
+        "descripcion": "Gestión de bases de datos con +10TB de datos"
+      },
+      {
+        "empresa": "IT Services",
+        "cargo": "Junior DBA",
+        "años": 2,
+        "descripcion": "Monitoreo y mantenimiento de servidores SQL"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Diplomado en Bases de Datos",
+        "institucion": "Instituto de TI",
+        "año": 2018
+      }
+    ],
+    "certificaciones": [
+      "OCP Oracle Certified Associate",
+      "PostgreSQL Certification"
+    ],
+    "nivel": "mid",
+    "disponibilidad": "3 semanas",
+    "pretension_salarial": 56000
+  },
+  {
+    "id": 18,
+    "nombre": "Gabriela Ortiz",
+    "titulo": "Cybersecurity Engineer",
+    "experiencia_años": 5,
+    "resumen": "Ingeniera de ciberseguridad especializada en pentesting y secure development. Experta en OWASP.",
+    "habilidades": [
+      "Pentesting",
+      "OWASP",
+      "Burp Suite",
+      "Metasploit",
+      "Secure Coding",
+      "SSL/TLS",
+      "Firewalls"
+    ],
+    "lenguajes_programacion": ["Python", "Java", "SQL", "Bash"],
+    "experiencia_laboral": [
+      {
+        "empresa": "Security Corp",
+        "cargo": "Security Engineer",
+        "años": 5,
+        "descripcion": "Auditorías de seguridad para +30 empresas del Fortune 500"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Licenciatura en Ciberseguridad",
+        "institucion": "Universidad de Seguridad",
+        "año": 2019
+      }
+    ],
+    "certificaciones": [
+      "CEH - Certified Ethical Hacker",
+      "OSCP",
+      "CCNA Security"
+    ],
+    "nivel": "mid",
+    "disponibilidad": "1 mes",
+    "pretension_salarial": 62000
+  },
+  {
+    "id": 19,
+    "nombre": "Luis García",
+    "titulo": "Junior Backend Developer",
+    "experiencia_años": 1.5,
+    "resumen": "Desarrollador backend junior con conocimientos en Node.js y Express. Recién egresado de bootcamp intensivo.",
+    "habilidades": [
+      "Node.js",
+      "Express",
+      "JavaScript",
+      "MongoDB",
+      "REST APIs",
+      "Git",
+      "Postman"
+    ],
+    "lenguajes_programacion": ["JavaScript", "Python", "SQL"],
+    "experiencia_laboral": [
+      {
+        "empresa": "StartUp Tech",
+        "cargo": "Junior Backend Developer",
+        "años": 1.5,
+        "descripcion": "Desarrollo de APIs REST para plataforma de reservas"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Bootcamp Backend",
+        "institucion": "Code Masters",
+        "año": 2023
+      }
+    ],
+    "certificaciones": [],
+    "nivel": "junior",
+    "disponibilidad": "inmediata",
+    "pretension_salarial": 28000
+  },
+  {
+    "id": 20,
+    "nombre": "Alejandra Fuentes",
+    "titulo": "Machine Learning Engineer",
+    "experiencia_años": 4,
+    "resumen": "Ingeniera ML con experiencia en deep learning y computer vision. Especializada en PyTorch y TensorFlow.",
+    "habilidades": [
+      "Python",
+      "TensorFlow",
+      "PyTorch",
+      "Scikit-learn",
+      "pandas",
+      "OpenCV",
+      "Jupyter",
+      "MLOps"
+    ],
+    "lenguajes_programacion": ["Python", "SQL", "R", "Scala"],
+    "experiencia_laboral": [
+      {
+        "empresa": "AI Innovations",
+        "cargo": "Machine Learning Engineer",
+        "años": 4,
+        "descripcion": "Desarrollé modelos de visión computacional con 95% accuracy"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Maestría en Machine Learning",
+        "institucion": "Universidad de Inteligencia Artificial",
+        "año": 2020
+      }
+    ],
+    "certificaciones": ["TensorFlow Developer Certificate", "AWS ML Specialty"],
+    "nivel": "mid",
+    "disponibilidad": "4 semanas",
+    "pretension_salarial": 64000
+  },
+  {
+    "id": 21,
+    "nombre": "Rodrigo Campos",
+    "titulo": "Senior Full Stack Developer",
+    "experiencia_años": 11,
+    "resumen": "Senior developer con 11 años de experiencia cross-stack. Experto en arquitectura de productos y liderazgo técnico.",
+    "habilidades": [
+      "React",
+      "Node.js",
+      "Python",
+      "AWS",
+      "Docker",
+      "PostgreSQL",
+      "System Design",
+      "Leadership"
+    ],
+    "lenguajes_programacion": ["JavaScript", "Python", "Java", "TypeScript"],
+    "experiencia_laboral": [
+      {
+        "empresa": "Global Tech",
+        "cargo": "Principal Engineer",
+        "años": 4,
+        "descripcion": "Definí estándares técnicos para 50+ desarrolladores"
+      },
+      {
+        "empresa": "Innovation Labs",
+        "cargo": "Senior Full Stack Developer",
+        "años": 5,
+        "descripcion": "Desarrollo de plataforma SaaS con 100k+ usuarios"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Ingeniería en Computación",
+        "institucion": "Universidad Nacional",
+        "año": 2012
+      }
+    ],
+    "certificaciones": [
+      "AWS Solutions Architect Professional",
+      "Kubernetes Certified Developer"
+    ],
+    "nivel": "senior",
+    "disponibilidad": "6 semanas",
+    "pretension_salarial": 100000
+  },
+  {
+    "id": 22,
+    "nombre": "Mariana Rocha",
+    "titulo": "QA Engineer",
+    "experiencia_años": 3,
+    "resumen": "Ingeniera QA con experiencia en testing manual y automatizado. Especialista en metodologías ágiles.",
+    "habilidades": [
+      "Selenium",
+      "Java",
+      "TestNG",
+      "Cucumber",
+      "API Testing",
+      "Jira",
+      "Manual Testing"
+    ],
+    "lenguajes_programacion": ["Java", "Python", "JavaScript", "Bash"],
+    "experiencia_laboral": [
+      {
+        "empresa": "QA Experts",
+        "cargo": "QA Engineer",
+        "años": 3,
+        "descripcion": "Testing de aplicaciones web y móviles para startups y pymes"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Carrera Técnica en QA",
+        "institucion": "Instituto de Testing",
+        "año": 2021
+      }
+    ],
+    "certificaciones": ["ISTQB Foundation Level", "Scrum Master Certified"],
+    "nivel": "mid",
+    "disponibilidad": "2 semanas",
+    "pretension_salarial": 40000
+  },
+  {
+    "id": 23,
+    "nombre": "Javier Mendoza",
+    "titulo": "DevOps Specialist",
+    "experiencia_años": 5,
+    "resumen": "Especialista DevOps con experiencia en automatización de deployments y monitoreo de infraestructura.",
+    "habilidades": [
+      "Kubernetes",
+      "Docker",
+      "GitLab CI/CD",
+      "Terraform",
+      "Prometheus",
+      "ELK Stack",
+      "Linux"
+    ],
+    "lenguajes_programacion": ["Bash", "Python", "YAML", "Go"],
+    "experiencia_laboral": [
+      {
+        "empresa": "DevOps Pro",
+        "cargo": "DevOps Specialist",
+        "años": 5,
+        "descripcion": "Implementé CI/CD para 100+ servicios en Kubernetes"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Diplomado DevOps",
+        "institucion": "Cloud Academy",
+        "año": 2019
+      }
+    ],
+    "certificaciones": [
+      "Kubernetes CKA",
+      "Terraform Associate",
+      "GitLab Certified Associate"
+    ],
+    "nivel": "mid",
+    "disponibilidad": "3 semanas",
+    "pretension_salarial": 59000
+  },
+  {
+    "id": 24,
+    "nombre": "Paula Ramos",
+    "titulo": "Web Developer",
+    "experiencia_años": 2,
+    "resumen": "Desarrolladora web junior-mid con experiencia en HTML, CSS y JavaScript. Aprendizaje continuo en frameworks modernos.",
+    "habilidades": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Webpack",
+      "npm",
+      "Git",
+      "Responsive Design"
+    ],
+    "lenguajes_programacion": ["JavaScript", "HTML", "CSS", "Bash"],
+    "experiencia_laboral": [
+      {
+        "empresa": "Web Studio",
+        "cargo": "Web Developer",
+        "años": 2,
+        "descripcion": "Desarrollo de sitios web estáticos y dinámicos"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Bootcamp Web Development",
+        "institucion": "Dev School",
+        "año": 2022
+      }
+    ],
+    "certificaciones": [],
+    "nivel": "junior",
+    "disponibilidad": "1 semana",
+    "pretension_salarial": 32000
+  },
+  {
+    "id": 25,
+    "nombre": "Oscar Herrera",
+    "titulo": "Senior Software Architect",
+    "experiencia_años": 12,
+    "resumen": "Arquitecto de software con 12 años de experiencia en diseño de sistemas complejos. Consultor en arquitectura enterprise.",
+    "habilidades": [
+      "System Architecture",
+      "Microservicios",
+      "DDD",
+      "Event-driven",
+      "CQRS",
+      "Cloud",
+      "Leadership"
+    ],
+    "lenguajes_programacion": ["Java", "Python", "Go", "JavaScript"],
+    "experiencia_laboral": [
+      {
+        "empresa": "Enterprise Architects",
+        "cargo": "Senior Software Architect",
+        "años": 6,
+        "descripcion": "Diseñé arquitectura para transformación digital de bancos"
+      },
+      {
+        "empresa": "BigCorp",
+        "cargo": "Lead Developer",
+        "años": 4,
+        "descripcion": "Arquitectura de plataforma de e-commerce"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Maestría en Ingeniería de Software",
+        "institucion": "Universidad Elite",
+        "año": 2012
+      }
+    ],
+    "certificaciones": [
+      "TOGAF Certified",
+      "AWS Solutions Architect Professional",
+      "Kubernetes Expert"
+    ],
+    "nivel": "senior",
+    "disponibilidad": "2 meses",
+    "pretension_salarial": 110000
+  },
+  {
+    "id": 26,
+    "nombre": "Daniela Castro",
+    "titulo": "React Native Developer",
+    "experiencia_años": 3,
+    "resumen": "Desarrolladora especializada en React Native. Experiencia en desarrollo multiplataforma iOS y Android.",
+    "habilidades": [
+      "React Native",
+      "JavaScript",
+      "TypeScript",
+      "Redux",
+      "Firebase",
+      "Expo",
+      "Native Modules"
+    ],
+    "lenguajes_programacion": ["JavaScript", "TypeScript", "Java", "Swift"],
+    "experiencia_laboral": [
+      {
+        "empresa": "CrossPlatform Apps",
+        "cargo": "React Native Developer",
+        "años": 3,
+        "descripcion": "Desarrollé 5 apps multiplataforma con +1M descargas"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Bootcamp React Native",
+        "institucion": "Mobile Academy",
+        "año": 2021
+      }
+    ],
+    "certificaciones": ["React Native Advanced"],
+    "nivel": "mid",
+    "disponibilidad": "2 semanas",
+    "pretension_salarial": 50000
+  },
+  {
+    "id": 27,
+    "nombre": "Tomás Vázquez",
+    "titulo": "GraphQL Developer",
+    "experiencia_años": 4,
+    "resumen": "Desarrollador especializado en GraphQL y APIs modernas. Experto en Apollo Server y Cliente.",
+    "habilidades": [
+      "GraphQL",
+      "Apollo Server",
+      "Apollo Client",
+      "Node.js",
+      "MongoDB",
+      "DataLoader",
+      "Subscriptions"
+    ],
+    "lenguajes_programacion": ["JavaScript", "TypeScript", "SQL", "Python"],
+    "experiencia_laboral": [
+      {
+        "empresa": "API First",
+        "cargo": "GraphQL Developer",
+        "años": 4,
+        "descripcion": "Migración de REST a GraphQL reduciendo consultas en 60%"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Licenciatura en Informática",
+        "institucion": "Universidad Técnica",
+        "año": 2020
+      }
+    ],
+    "certificaciones": ["GraphQL Certified Developer"],
+    "nivel": "mid",
+    "disponibilidad": "1 mes",
+    "pretension_salarial": 54000
+  },
+  {
+    "id": 28,
+    "nombre": "Catalina Moreno",
+    "titulo": "Quality Assurance Lead",
+    "experiencia_años": 7,
+    "resumen": "Líder de QA con experiencia en estrategia de testing y gestión de equipos. Especialista en automatización.",
+    "habilidades": [
+      "Test Strategy",
+      "Selenium",
+      "Cypress",
+      "API Testing",
+      "Performance Testing",
+      "Team Leadership"
+    ],
+    "lenguajes_programacion": ["Python", "Java", "JavaScript", "SQL"],
+    "experiencia_laboral": [
+      {
+        "empresa": "Quality First",
+        "cargo": "QA Lead",
+        "años": 4,
+        "descripcion": "Lideré equipo de 8 QA engineers implementando estrategia zero-bug"
+      },
+      {
+        "empresa": "Software Labs",
+        "cargo": "Senior QA Engineer",
+        "años": 3,
+        "descripcion": "Testing automatizado de aplicación empresarial"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Ingeniería en Software",
+        "institucion": "Universidad Estatal",
+        "año": 2017
+      }
+    ],
+    "certificaciones": ["ISTQB Advanced Test Manager", "Selenium Certified"],
+    "nivel": "mid",
+    "disponibilidad": "6 semanas",
+    "pretension_salarial": 58000
+  },
+  {
+    "id": 29,
+    "nombre": "Ernesto Núñez",
+    "titulo": "Linux System Administrator",
+    "experiencia_años": 6,
+    "resumen": "Administrador de sistemas Linux con experiencia en servidores empresariales. Especialista en automatización.",
+    "habilidades": [
+      "Linux",
+      "Bash",
+      "Ansible",
+      "systemd",
+      "SSH",
+      "LVM",
+      "Networking",
+      "Security"
+    ],
+    "lenguajes_programacion": ["Bash", "Python", "Perl", "YAML"],
+    "experiencia_laboral": [
+      {
+        "empresa": "Infrastructure Corp",
+        "cargo": "Linux System Administrator",
+        "años": 6,
+        "descripcion": "Gestión de +200 servidores Linux con uptime 99.9%"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Diplomado en Administración de Sistemas",
+        "institucion": "Instituto Técnico",
+        "año": 2018
+      }
+    ],
+    "certificaciones": [
+      "RHCSA Red Hat Certified",
+      "Linux Foundation Certified"
+    ],
+    "nivel": "mid",
+    "disponibilidad": "1 mes",
+    "pretension_salarial": 55000
+  },
+  {
+    "id": 30,
+    "nombre": "Adriana Flores",
+    "titulo": "Senior Frontend Architect",
+    "experiencia_años": 9,
+    "resumen": "Arquitecta frontend senior con experiencia en design systems y aplicaciones complejas. Mentora técnica.",
+    "habilidades": [
+      "React",
+      "TypeScript",
+      "Design Systems",
+      "Storybook",
+      "Testing Library",
+      "Performance",
+      "Accessibility"
+    ],
+    "lenguajes_programacion": ["JavaScript", "TypeScript", "CSS", "HTML"],
+    "experiencia_laboral": [
+      {
+        "empresa": "Design Systems Inc",
+        "cargo": "Senior Frontend Architect",
+        "años": 5,
+        "descripcion": "Creé design system usado por +100 desarrolladores"
+      },
+      {
+        "empresa": "Tech Giants",
+        "cargo": "Senior Frontend Developer",
+        "años": 4,
+        "descripcion": "Desarrollo de producto de streaming con 5M+ usuarios"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Ingeniería en Computación",
+        "institucion": "Universidad Privada",
+        "año": 2015
+      }
+    ],
+    "certificaciones": ["Advanced React", "Web Accessibility Specialist"],
+    "nivel": "senior",
+    "disponibilidad": "2 meses",
+    "pretension_salarial": 88000
+  },
+  {
+    "id": 31,
+    "nombre": "Víctor Sosa",
+    "titulo": "Junior Full Stack Developer",
+    "experiencia_años": 1,
+    "resumen": "Programador junior full stack recién egresado. Con entusiasmo por aprender y contribuir en proyectos reales.",
+    "habilidades": [
+      "JavaScript",
+      "React",
+      "Node.js",
+      "MongoDB",
+      "HTML",
+      "CSS",
+      "Git"
+    ],
+    "lenguajes_programacion": ["JavaScript", "Python", "HTML", "CSS"],
+    "experiencia_laboral": [
+      {
+        "empresa": "Startup Incubator",
+        "cargo": "Junior Full Stack Developer",
+        "años": 1,
+        "descripcion": "Desarrollo de CRUD applications y mantenimiento de código"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Licenciatura en Sistemas",
+        "institucion": "Universidad Pública",
+        "año": 2023
+      }
+    ],
+    "certificaciones": [],
+    "nivel": "junior",
+    "disponibilidad": "inmediata",
+    "pretension_salarial": 26000
+  },
+  {
+    "id": 32,
+    "nombre": "Susana Iglesias",
+    "titulo": "Database Performance Specialist",
+    "experiencia_años": 8,
+    "resumen": "Especialista en optimización de bases de datos y tuning de performance. Experta en PostgreSQL y MySQL.",
+    "habilidades": [
+      "PostgreSQL",
+      "MySQL",
+      "Query Optimization",
+      "Indexing",
+      "Replication",
+      "Backup",
+      "Monitoring"
+    ],
+    "lenguajes_programacion": ["SQL", "PL/SQL", "Python", "Bash"],
+    "experiencia_laboral": [
+      {
+        "empresa": "Database Optimization",
+        "cargo": "Database Performance Specialist",
+        "años": 5,
+        "descripcion": "Optimicé queries reduciendo tiempo de ejecución 80%"
+      },
+      {
+        "empresa": "DataServices",
+        "cargo": "DBA",
+        "años": 3,
+        "descripcion": "Administración de bases de datos empresariales"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Diplomado en Bases de Datos",
+        "institucion": "Data Academy",
+        "año": 2016
+      }
+    ],
+    "certificaciones": ["PostgreSQL Certified Associate", "MySQL Expert"],
+    "nivel": "mid",
+    "disponibilidad": "1 mes",
+    "pretension_salarial": 61000
+  },
+  {
+    "id": 33,
+    "nombre": "Gonzalo Pacheco",
+    "titulo": "REST API Developer",
+    "experiencia_años": 5,
+    "resumen": "Desarrollador especializado en diseño e implementación de APIs REST. Experto en Spring Boot.",
+    "habilidades": [
+      "Spring Boot",
+      "Spring Data",
+      "REST APIs",
+      "JWT",
+      "Swagger",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "lenguajes_programacion": ["Java", "SQL", "Python", "Bash"],
+    "experiencia_laboral": [
+      {
+        "empresa": "API Services",
+        "cargo": "REST API Developer",
+        "años": 5,
+        "descripcion": "Desarrollé 15+ APIs REST soportando millones de requests"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Ingeniería en Sistemas",
+        "institucion": "Universidad Católica",
+        "año": 2019
+      }
+    ],
+    "certificaciones": [
+      "Spring Professional Developer",
+      "REST API Design Certified"
+    ],
+    "nivel": "mid",
+    "disponibilidad": "3 semanas",
+    "pretension_salarial": 53000
+  },
+  {
+    "id": 34,
+    "nombre": "Beatriz Ramírez",
+    "titulo": "Data Scientist",
+    "experiencia_años": 4,
+    "resumen": "Data scientist con experiencia en análisis predictivo e insights. Especialista en Python y estadística.",
+    "habilidades": [
+      "Python",
+      "Pandas",
+      "Scikit-learn",
+      "Matplotlib",
+      "Statistics",
+      "SQL",
+      "Jupyter",
+      "Power BI"
+    ],
+    "lenguajes_programacion": ["Python", "R", "SQL", "Bash"],
+    "experiencia_laboral": [
+      {
+        "empresa": "Analytics Corp",
+        "cargo": "Data Scientist",
+        "años": 4,
+        "descripcion": "Análisis de datos para +50 clientes generando insights clave"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Maestría en Ciencia de Datos",
+        "institucion": "Universidad de Datos",
+        "año": 2020
+      }
+    ],
+    "certificaciones": [
+      "Google Data Analytics Certificate",
+      "Python Data Science"
+    ],
+    "nivel": "mid",
+    "disponibilidad": "4 semanas",
+    "pretension_salarial": 60000
+  },
+  {
+    "id": 35,
+    "nombre": "Maximiliano Díaz",
+    "titulo": "Senior Golang Developer",
+    "experiencia_años": 7,
+    "resumen": "Desarrollador senior especializado en Go. Experiencia en sistemas concurrentes de alta performance.",
+    "habilidades": [
+      "Go",
+      "Concurrency",
+      "gRPC",
+      "Microservicios",
+      "PostgreSQL",
+      "Docker",
+      "AWS"
+    ],
+    "lenguajes_programacion": ["Go", "Python", "SQL", "Bash"],
+    "experiencia_laboral": [
+      {
+        "empresa": "Performance Systems",
+        "cargo": "Senior Go Developer",
+        "años": 5,
+        "descripcion": "Desarrollé servicio de búsqueda en Go procesando 100k req/s"
+      },
+      {
+        "empresa": "Backend Startup",
+        "cargo": "Go Developer",
+        "años": 2,
+        "descripcion": "Microservicios con Go y Docker"
+      }
+    ],
+    "educacion": [
+      {
+        "titulo": "Ingeniería en Informática",
+        "institucion": "Universidad Técnica",
+        "año": 2017
+      }
+    ],
+    "certificaciones": ["Go Advanced Developer"],
+    "nivel": "senior",
+    "disponibilidad": "6 semanas",
+    "pretension_salarial": 82000
+  }
+]

@@ -4,8 +4,11 @@ import logging
 from typing import List, Dict
 import argparse
 import tempfile
+import json
 from nltk_setup import download_nltk_resources
+
 download_nltk_resources()
+
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -16,6 +19,7 @@ from data.extractor import DocumentExtractor, CVInfoExtractor
 from data.preprocessor import DataPipeline
 from models.classifier import CVClassifier, JobMatcher
 from config.responses import CVResponseGenerator
+
 
 class CVClassifierApp:
     
@@ -314,39 +318,101 @@ class CVClassifierApp:
             return "🔍 Revisar - Perfil técnico medio, requiere evaluación detallada"
         else:
             return "⚠️  Cuidado - Score técnico bajo, revisar cuidadosamente"
-    
-    def train_model_with_sample_data(self, sample_data_path: str = None):
-        """Entrena el modelo con datos de ejemplo"""
-        logger.info("Iniciando entrenamiento del modelo...")
+
+    def train_model(self, dataset_path: str = None):
+        """Entrena el modelo con un dataset real desde archivo JSON"""
+        logger.info("Iniciando entrenamiento del modelo con dataset real...")
         
-        # **DATOS DE EJEMPLO MEJORADOS** con casos de rechazo
-        sample_texts = [
-            "Ingeniero de Software con 5 años de experiencia en Python, JavaScript y React. MBA en Administración.",
-            "Desarrollador Junior con conocimientos básicos en HTML, CSS. Recién graduado de carrera técnica.",
-            "Senior Data Scientist con PhD en Estadística, 8 años en machine learning, TensorFlow, AWS.",
-            "Cajero de supermercado con 3 años de experiencia en atención al cliente y manejo de caja registradora.",
-            "Project Manager certificado PMP, 10 años liderando equipos de desarrollo, Agile, Scrum.",
-            "Mesero con experiencia en restaurantes, excelente atención al cliente y trabajo en equipo.",
-            "Desarrollador Full Stack Python/React con experiencia en microservicios y Docker.",
-            "Guardia de seguridad con 5 años de experiencia en vigilancia y control de accesos."
-        ]
+        # Ruta por defecto
+        if dataset_path is None:
+            dataset_path = os.path.join(Settings.DATA_DIR, 'cv_dataset.json')
         
-        sample_infos = [
-            {'skills': ['python', 'javascript', 'react'], 'experience_years': 5, 'education': 'master', 'email': 'test@email.com', 'phone': '123456789'},
-            {'skills': ['html', 'css'], 'experience_years': 0, 'education': 'technical', 'email': 'junior@email.com', 'phone': '987654321'},
-            {'skills': ['python', 'tensorflow', 'aws', 'machine learning'], 'experience_years': 8, 'education': 'doctorate', 'email': 'senior@email.com', 'phone': '555666777'},
-            {'skills': ['atención al cliente'], 'experience_years': 3, 'education': 'high_school', 'email': 'cajero@email.com', 'phone': '111222333'},
-            {'skills': ['liderazgo', 'trabajo en equipo', 'agile'], 'experience_years': 10, 'education': 'master', 'email': 'pm@email.com', 'phone': '444555666'},
-            {'skills': ['atención al cliente', 'trabajo en equipo'], 'experience_years': 2, 'education': 'high_school', 'email': 'mesero@email.com', 'phone': '666777888'},
-            {'skills': ['python', 'react', 'docker', 'microservices'], 'experience_years': 4, 'education': 'bachelor', 'email': 'fullstack@email.com', 'phone': '777888999'},
-            {'skills': ['vigilancia', 'seguridad'], 'experience_years': 5, 'education': 'high_school', 'email': 'guardia@email.com', 'phone': '888999000'}
-        ]
-        
-        # Labels corregidos: 0: No Apto, 1: Revisar, 2: Apto
-        sample_labels = [2, 1, 2, 0, 2, 0, 2, 0]  # Cajero, mesero y guardia = No Apto
-        sample_label_names = ['Apto', 'Revisar', 'Apto', 'No Apto', 'Apto', 'No Apto', 'Apto', 'No Apto']
+        # Verificar que el archivo exista
+        if not os.path.exists(dataset_path):
+            logger.error(f"Dataset no encontrado: {dataset_path}")
+            return False
         
         try:
+            # Cargar dataset
+            with open(dataset_path, 'r', encoding='utf-8') as f:
+                raw_data = json.load(f)
+            
+            # Validar estructura
+            if not isinstance(raw_data, list):
+                logger.error("El dataset debe ser una lista de objetos")
+                return False
+            
+            # Convertir a formato interno
+            sample_texts = []
+            sample_infos = []
+            sample_label_names = []
+            
+            for item in raw_data:
+                # Crear texto completo del CV
+                cv_text = item.get('cv_text', '')
+                if not cv_text:
+                    # Si no tiene cv_text, construirlo desde otros campos
+                    parts = []
+                    if item.get('titulo'):
+                        parts.append(item['titulo'])
+                    if item.get('resumen'):
+                        parts.append(item['resumen'])
+                    for exp in item.get('experiencia_laboral', []):
+                        parts.append(f"{exp.get('cargo', '')} en {exp.get('empresa', '')}: {exp.get('descripcion', '')}")
+                    for edu in item.get('educacion', []):
+                        parts.append(f"{edu.get('titulo', '')} en {edu.get('institucion', '')}")
+                    if item.get('certificaciones'):
+                        parts.append("Certificaciones: " + ", ".join(item['certificaciones']))
+                    cv_text = "\n".join(parts)
+                
+                # Unificar habilidades
+                all_skills = set()
+                all_skills.update([s.lower() for s in item.get('habilidades', [])])
+                all_skills.update([s.lower() for s in item.get('lenguajes_programacion', [])])
+                all_skills.update([s.lower() for s in item.get('certificaciones', [])])
+                
+                # Experiencia total
+                total_exp = item.get('experiencia_años')
+                if total_exp is None:
+                    total_exp = sum(exp.get('años', 0) for exp in item.get('experiencia_laboral', []))
+                
+                # Educación (mapeo simple)
+                education_level = 'other'
+                if item.get('educacion'):
+                    first_edu = item['educacion'][0].get('titulo', '').lower()
+                    if any(kw in first_edu for kw in ['ingeniería', 'licenciatura', 'bachelor']):
+                        education_level = 'bachelor'
+                    elif any(kw in first_edu for kw in ['maestría', 'master']):
+                        education_level = 'master'
+                    elif any(kw in first_edu for kw in ['doctorado', 'phd']):
+                        education_level = 'doctorate'
+                    elif any(kw in first_edu for kw in ['técnico', 'technical']):
+                        education_level = 'technical'
+                
+                # Etiqueta
+                label = item.get('label', 'Revisar')  # Usa la etiqueta del dataset
+                
+                # Añadir al conjunto de entrenamiento
+                sample_texts.append(cv_text)
+                sample_infos.append({
+                    'skills': list(all_skills),
+                    'experience_years': total_exp,
+                    'education': education_level,
+                    'email': '',  # opcional
+                    'phone': ''   # opcional
+                })
+                sample_label_names.append(label)
+            
+            # Mapear labels a números
+            label_map = {"No apto": 0, "Revisar": 1, "Apto": 2}
+            try:
+                sample_labels = [label_map[label] for label in sample_label_names]
+            except KeyError as e:
+                logger.error(f"Etiqueta inválida en dataset: {e}")
+                return False
+            
+            logger.info(f"Dataset cargado: {len(sample_texts)} ejemplos")
+            
             # Procesar datos
             text_sequences, feature_matrix, encoded_labels = self.data_pipeline.process_cv_data(
                 sample_texts, sample_infos, sample_label_names
@@ -374,9 +440,9 @@ class CVClassifierApp:
             return True
             
         except Exception as e:
-            logger.error(f"Error durante el entrenamiento: {e}")
+            logger.error(f"Error durante el entrenamiento con dataset real: {e}")
             return False
-    
+
     def create_job_profile(self, description: str, skills: List[str], 
                           min_experience: int = 0, education: str = 'bachelor') -> Dict:
         """Crea un perfil de trabajo para matching"""
@@ -386,6 +452,7 @@ class CVClassifierApp:
         return self.job_matcher.create_job_profile(
             description, skills, min_experience, education
         )
+
 
 def main():
     """Función principal con interfaz de línea de comandos"""
@@ -403,7 +470,7 @@ def main():
     
     if args.mode == 'train':
         logger.info("Modo entrenamiento")
-        success = app.train_model_with_sample_data(args.train_data)
+        success = app.train_model(args.train_data)
         if success:
             print("✅ Modelo entrenado exitosamente")
         else:
@@ -481,6 +548,6 @@ def main():
         from api.endpoints import start_server
         start_server(app)
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     main()

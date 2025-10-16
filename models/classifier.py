@@ -150,7 +150,7 @@ class CVClassifier:
     def save_model(self, model_path: str = None) -> str:
         """Guarda el modelo entrenado"""
         if model_path is None:
-            model_path = os.path.join(settings.MODEL_DIR, 'cv_classifier_model.keras')  # CORREGIDO: añadida extensión
+            model_path = os.path.join(settings.MODEL_DIR, 'cv_classifier_model.keras') 
         
         os.makedirs(os.path.dirname(model_path), exist_ok=True)
         

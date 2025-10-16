@@ -14,7 +14,7 @@ class Settings:
     # Paths
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     MODEL_DIR = os.path.join(BASE_DIR, 'saved_models')
-    DATA_DIR = os.path.join(BASE_DIR, 'data_samples')
+    DATA_DIR = os.path.join(BASE_DIR, 'training_data')
 
     # Habilidades técnicas más específicas
     TECH_SKILLS = [
