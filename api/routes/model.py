@@ -1,11 +1,13 @@
 from fastapi import APIRouter, HTTPException, BackgroundTasks
 from api.deps import get_cv_app
+from core.trainer import ModelTrainer  
 from datetime import datetime
 import os
 import logging
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
+
 
 @router.get("/model-status")
 async def model_status():
@@ -48,17 +50,19 @@ async def model_status():
 
     return status
 
+
 @router.post("/train-model")
 async def train_model(background_tasks: BackgroundTasks, dataset_path: str = None):
     from config.settings import Settings
-    cv_app = get_cv_app()
 
     if dataset_path is None:
         dataset_path = os.path.join(Settings.DATA_DIR, 'cv_dataset.json')
 
     def train_background():
         logger.info(f"Iniciando entrenamiento en background con dataset: {dataset_path}")
-        success = cv_app.train_model(dataset_path)
+        cv_app = get_cv_app()
+        trainer = ModelTrainer(cv_app.classifier, cv_app.data_pipeline)
+        success = trainer.train_from_json(dataset_path)
         logger.info(f"Entrenamiento completado: {'éxito' if success else 'fallido'}")
 
     background_tasks.add_task(train_background)

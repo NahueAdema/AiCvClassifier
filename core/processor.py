@@ -10,6 +10,22 @@ from models.classifier import JobMatcher
 logger = logging.getLogger(__name__)
 
 
+def _to_scalar(value, default=0.0):
+    """Convierte cualquier valor numérico (array, lista, escalar) a float escalar."""
+    try:
+        arr = np.asarray(value)
+        if arr.size == 0:
+            return float(default)
+        elif arr.size == 1:
+            return float(arr.item())
+        else:
+            # Si hay múltiples valores, tomamos el primero (o podrías usar np.mean)
+            return float(arr.flat[0])
+    except Exception as e:
+        logger.warning(f"Error al convertir a escalar: {value} ({e}). Usando default {default}.")
+        return float(default)
+
+
 class CVProcessor:
     def __init__(self, app):
         self.app = app
@@ -34,7 +50,8 @@ class CVProcessor:
 
             # Extraer info estructurada
             cv_info = self.app.cv_info_extractor.extract_info(text)
-            tech_score = CVValidator.calculate_tech_score(text)
+            logger.info(f"DEBUG - cv_info extraído: {cv_info}") 
+            tech_score = _to_scalar(CVValidator.calculate_tech_score(text))
             logger.info(f"Score técnico calculado: {tech_score:.2f}")
 
             # ❌ Rechazo por score técnico bajo
@@ -62,6 +79,7 @@ class CVProcessor:
                 self.app.data_pipeline.text_processor.create_tokenizer([processed_text])
             text_sequence = self.app.data_pipeline.text_processor.texts_to_sequences([processed_text])[0]
             features_dict = self.app.data_pipeline.feature_extractor.extract_features(cv_info)
+            logger.info(f"DEBUG - features_dict calculado: {features_dict}")
             features = list(features_dict.values())
 
             # Verificar modelo
@@ -75,7 +93,8 @@ class CVProcessor:
 
             if self.app.classifier.model:
                 result = self.app.classifier.predict_single(np.array([text_sequence]), np.array([features]))
-                score = self.app.classifier.calculate_cv_score(np.array([text_sequence]), np.array([features]))
+                raw_score = self.app.classifier.calculate_cv_score(np.array([text_sequence]), np.array([features]))
+                score = _to_scalar(raw_score)
 
                 # Ajuste por tech_score alto
                 if score < 50 and tech_score > 0.6:
@@ -93,15 +112,27 @@ class CVProcessor:
                     result.update(job_match)
 
                 # Degradar si score bajo pero clasificado como "Apto"
-                if result.get('predicted_class') == 'Apto' and score < Settings.APTO_THRESHOLD * 100:
-                    result['predicted_class'] = 'Revisar'
-                    result['adjustment_reason'] = f'Degradado de Apto a Revisar por score bajo: {score:.1f}'
+                if score >= Settings.APTO_THRESHOLD * 100:
+                    final_class = 'Apto'
+                elif score >= Settings.NO_APTO_THRESHOLD * 100:
+                    final_class = 'Revisar'
+                else:
+                    final_class = 'No apto'
+
+                # Registrar ajuste solo si el modelo y el score no coinciden
+                original_class = result.get('predicted_class')
+                if original_class and original_class != final_class:
+                    result['adjustment_reason'] = f"Clase ajustada de '{original_class}' a '{final_class}' basado en cv_score={score:.1f}"
+
+                result['predicted_class'] = final_class
 
             else:
                 logger.warning("No hay modelo entrenado. Usando análisis basado en reglas.")
                 result = self._fallback_analysis(tech_score, cv_info)
+                # En fallback, el cv_score ya está como escalar
 
             # Completar resultado
+            final_cv_score = result.get('cv_score', tech_score * 100)
             result.update({
                 'cv_info': cv_info,
                 'text_preview': text[:200] + "..." if len(text) > 200 else text,
@@ -109,18 +140,18 @@ class CVProcessor:
                 'validation_stage': 'full_processing',
                 'initial_validation': Settings.validate_profile(text),
                 'tech_score': tech_score,
-                'cv_score': result.get('cv_score', tech_score * 100)
+                'cv_score': final_cv_score
             })
 
             detailed_response = CVResponseGenerator.generate_detailed_response(result)
             result['detailed_analysis'] = detailed_response
             result['analysis'] = detailed_response
 
-            logger.info(f"CV procesado: {result['predicted_class']} (Score: {result.get('cv_score', 0):.1f})")
+            logger.info(f"CV procesado: {result['predicted_class']} (Score: {final_cv_score:.1f})")
             return result
 
         except Exception as e:
-            logger.error(f"Error procesando CV {file_path}: {e}")
+            logger.error(f"Error procesando CV {file_path}: {e}", exc_info=True)
             return {"error": str(e)}
 
     def _fallback_analysis(self, tech_score: float, cv_info: dict) -> dict:

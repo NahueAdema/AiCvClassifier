@@ -122,7 +122,7 @@ class CVClassifier:
         }
     
     def calculate_cv_score(self, text_sequence: np.ndarray, features: np.ndarray,
-                          job_requirements: Dict = None) -> float:
+                      job_requirements: Dict = None) -> float:
         """Calcula un score ponderado del CV (0-100)"""
         prediction = self.predict(text_sequence.reshape(1, -1), 
                                 features.reshape(1, -1))[0]
@@ -132,17 +132,18 @@ class CVClassifier:
         
         # Bonus por características específicas
         bonus = 0
-        feature_dict = {
-            'experience_years': features[4] if len(features) > 4 else 0,
-            'num_tech_skills': features[0] if len(features) > 0 else 0,
-            'education_level': features[5] if len(features) > 5 else 0
-        }
         
-        if feature_dict['experience_years'] > 0:
-            bonus += min(feature_dict['experience_years'] * 2, 15)
+        # Asegurar que features sea 1D y extraer como escalares
+        features_flat = np.asarray(features).flatten()
         
-        if feature_dict['num_tech_skills'] > 0:
-            bonus += min(feature_dict['num_tech_skills'] * 3, 15)
+        num_tech_skills = int(features_flat[0]) if len(features_flat) > 0 else 0
+        experience_years = float(features_flat[4]) if len(features_flat) > 4 else 0.0
+        
+        if experience_years > 0:
+            bonus += min(experience_years * 2, 15)
+        
+        if num_tech_skills > 0:
+            bonus += min(num_tech_skills * 3, 15)
         
         total_score = min(base_score * 100 + bonus, 100)
         return round(total_score, 2)

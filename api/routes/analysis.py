@@ -1,7 +1,10 @@
+# api/routes/analysis.py
 from fastapi import APIRouter, File, UploadFile, Form, HTTPException, BackgroundTasks
 from fastapi.responses import JSONResponse
 from api.models import ValidateTextRequest
 from api.deps import get_cv_app
+from core.processor import CVProcessor      
+from core.validator import CVValidator      
 import tempfile
 import os
 import json
@@ -14,8 +17,7 @@ router = APIRouter()
 @router.post("/validate-quick")
 async def validate_cv_text(request: ValidateTextRequest):
     try:
-        cv_app = get_cv_app()
-        result = cv_app.validate_cv_quick(request.text)
+        result = CVValidator.quick_validate(request.text)
         return {
             "validation_result": result['validation_result'],
             "tech_score": result['tech_score'],
@@ -61,7 +63,8 @@ async def analyze_cv(
                 except json.JSONDecodeError:
                     logger.warning("Formato JSON inválido en job_requirements")
 
-            result = cv_app.process_single_cv(tmp_file_path, job_req_dict)
+            processor = CVProcessor(cv_app)
+            result = processor.process_single_cv(tmp_file_path, job_req_dict)
             if 'error' in result:
                 raise HTTPException(status_code=500, detail=result['error'])
 
@@ -90,7 +93,6 @@ async def batch_analyze_cvs(
     background_tasks: BackgroundTasks = BackgroundTasks(),
     job_requirements: str = Form(None)
 ):
-    from api.deps import get_cv_app
     cv_app = get_cv_app()
 
     if len(files) > 20:
@@ -115,6 +117,9 @@ async def batch_analyze_cvs(
             logger.warning("Formato JSON inválido en job_requirements")
 
     try:
+        # ✅ Creamos el processor una sola vez
+        processor = CVProcessor(cv_app)
+
         for file in files:
             file_extension = os.path.splitext(file.filename)[1].lower()
             allowed_extensions = ['.pdf', '.docx', '.doc', '.txt']
@@ -127,7 +132,8 @@ async def batch_analyze_cvs(
             with tempfile.NamedTemporaryFile(delete=False, suffix=file_extension) as tmp_file:
                 tmp_file.write(content)
                 temp_files.append(tmp_file.name)
-                result = cv_app.process_single_cv(tmp_file.name, job_req_dict)
+                # ✅ Usamos processor
+                result = processor.process_single_cv(tmp_file.name, job_req_dict)
                 result.update({
                     'filename': file.filename,
                     'file_size_kb': round(len(content) / 1024, 2),
